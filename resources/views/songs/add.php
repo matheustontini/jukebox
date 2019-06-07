@@ -7,7 +7,7 @@
     <label for="">Name</label>
     <input type="text" name="name" value="<?=$region['name']?>"><br>
     <label for="">Description</label><br>
-    <textarea name="description" id="" cols="30" rows="10"><?=$region['description']?>"</textarea>
+    <textarea name="description" id="" cols="30" rows="10"><?=$region['description']?>"</textarea><br>
 
     <input type="submit" value="Submit">
 </form>
