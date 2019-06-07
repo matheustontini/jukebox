@@ -133,6 +133,6 @@ class SongController extends Controller
                 WHERE `id` = ?
             ", [$id]);}
         
-        return redirect('/songs/add');
+        return redirect('/songs/list');
     }
 }
