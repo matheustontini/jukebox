@@ -1,7 +1,7 @@
 <form action="" method="post">
-
+    <?=csrf_field();?>
     <label for="">Hash</label>
-    <input type="text" name="hash"><br>
+    <input type="text" name="hash" value="<?=$region['hash']?>"><br>
     <label for="">Author</label>
     <input type="text" name="author"><br>
     <label for="">Name</label>
@@ -11,5 +11,3 @@
 
     <input type="submit" value="Submit">
 </form>
-
-<?= $something ?>

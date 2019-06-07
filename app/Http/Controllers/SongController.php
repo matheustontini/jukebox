@@ -9,6 +9,7 @@ class SongController extends Controller
 {
     public function add(Request $request)
     {
+        $messages=[];
         $id = $request->input('id', null);
         if ($id) {
             $region = (array)DB::selectOne("
@@ -32,9 +33,11 @@ class SongController extends Controller
             // the form was submitted
 
             // update data from request data
-            $region['name'] = $request->input('id', '');
-            $region['slug'] = $request->input('hash', '');
-
+            $region['id'] = $request->input('id', '');
+            $region['hash'] = $request->input('hash', '');
+            $region['author'] = $request->input('author', '');
+            $region['name'] = $request->input('name', '');
+            $region['description'] = $request->input('description', '');
             // validation
             $valid = true;
 
@@ -43,20 +46,21 @@ class SongController extends Controller
                 $valid = false;
             }
 
-            // saving
             if ($valid) {
-
-                // save the data
                 if ($id) {
 
                     DB::update("
-                        UPDATE `region`
-                        SET `name` = ?,
-                            `slug` = ?
+                        UPDATE `songs`
+                        SET `hash` = ?,
+                            `author` = ?,
+                            `name` = ?,
+                            `description` = ?
                         WHERE `id` = ?
                     ", [
+                        $region['hash'],
+                        $region['author'],
                         $region['name'],
-                        $region['slug'],
+                        $region['description'],
                         $id
                     ]);
 
@@ -64,22 +68,37 @@ class SongController extends Controller
 
                     DB::insert("
                         INSERT
-                        INTO `region`
-                        (`name`, `slug`)
+                        INTO `songs`
+                        (`hash`,
+                        `author`,
+                        `name`,
+                        `description`,
+                        `datetime`
+                         )
                         VALUES
-                        (?, ?)
+                        (?, ?, ?, ?, ?)
                     ", [
+                        $region['hash'],
+                        $region['author'],
                         $region['name'],
-                        $region['slug']
+                        $region['description'],
+                        date("Y-m-d H:i:s")
                     ]);
 
                     $id = DB::getPDO()->lastInsertId();
                 }
 
-                return redirect('/regions/edit?id='.$id);
+                return redirect('/songs/add?id='.$id);
             }
         }
-
+        
+        $form = view('songs/add', [
+            'region' => $region
+        ]);
+        
+        return view('html_wrapper',[
+            'content'=>$form
+        ]);
 
     }
 }
