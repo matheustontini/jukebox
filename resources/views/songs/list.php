@@ -3,7 +3,7 @@
 
 <?php foreach ($songs as $song) : ?>
 
-<p class="text-left"><?=$song->name?></p>
+<h2 class="text-left"><?=$song->name?></h2>
 <p class="text-left"><?='by ' .$song->author?></p>
 
 <a href="/songs/play?id=<?=$song->id?>" class="btn btn-success">play</a>
