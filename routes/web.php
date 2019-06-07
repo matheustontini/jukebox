@@ -12,3 +12,4 @@
 */
 
 Route::get('/songs/add', 'SongController@add');
+Route::get('/songs/list', 'ListController@list');
