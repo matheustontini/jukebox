@@ -99,6 +99,25 @@ class SongController extends Controller
         return view('html_wrapper',[
             'content'=>$form
         ]);
+    }
 
+    public function play(Request $request){
+        
+        $id = $request->input('id', null);
+        $song=[];
+        if ($id) {
+            $song = (array)DB::selectOne("
+                SELECT *
+                FROM `songs`
+                WHERE `id` = ?
+            ", [$id]);
+
+        }else{}
+        $play = view('songs/play', [
+            'song' => $song
+        ]);
+        return view('html_wrapper',[
+            'content'=>$play
+        ]);
     }
 }

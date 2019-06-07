@@ -14,3 +14,4 @@
 Route::get('/songs/add', 'SongController@add');
 Route::get('/songs/list', 'ListController@list');
 Route::post('/songs/add', 'SongController@add');
+Route::get('/songs/play', 'SongController@play');
