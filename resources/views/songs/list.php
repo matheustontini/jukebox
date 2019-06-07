@@ -6,7 +6,7 @@
 <p class="text-left"><?='by ' .$song->author?></p>
 
 <a href="#" class="btn btn-success">play</a>
-<button type="button" class="btn btn-primary">edit</button>
-<button type="button" class="btn btn-danger">delete</button>
+<a href="/songs/add?id=<?=$song->id?>" class="btn btn-primary">edit</a>
+<a href="songs/add?id=<?=$song->id?>" class="btn btn-danger">delete</a>
 
 <?php endforeach ; ?>
