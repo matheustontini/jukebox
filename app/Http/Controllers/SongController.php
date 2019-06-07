@@ -91,11 +91,14 @@ class SongController extends Controller
                 return redirect('/songs/add?id='.$id);
             }
         }
-        
-        $form = view('songs/add', [
-            'region' => $region
+
+        $delete=view('songs/delete',[
+            'song' => $region
         ]);
-        
+        $form = view('songs/add', [
+            'region' => $region,
+            'delete'=>$delete
+        ]);        
         return view('html_wrapper',[
             'content'=>$form
         ]);
@@ -119,5 +122,17 @@ class SongController extends Controller
         return view('html_wrapper',[
             'content'=>$play
         ]);
+    }
+
+    public function delete(Request $request){
+        $id = $request->input('id', null);
+        if ($id) {
+            $song = (array)DB::delete("
+                DELETE
+                FROM `songs`
+                WHERE `id` = ?
+            ", [$id]);}
+        
+        return redirect('/songs/add');
     }
 }
